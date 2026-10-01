@@ -1,0 +1,1967 @@
+/* =========================================================
+   GINGERMITRA - SMART GINGER FARMING
+   ========================================================= */
+
+:root {
+
+    --forest: #164A35;
+    --forest-dark: #0F3526;
+
+    --green: #2F8F57;
+    --green-light: #E8F3EA;
+    --green-soft: #F1F7F1;
+
+    --ginger: #D97732;
+    --ginger-light: #FFF0E5;
+
+    --gold: #D9A441;
+    --gold-light: #FFF6DE;
+
+    --blue: #3478A8;
+    --blue-light: #EAF4FB;
+
+    --purple: #7456A8;
+    --purple-light: #F0ECFA;
+
+    --red: #C84A3D;
+    --red-light: #FFF0EE;
+
+    --text: #203128;
+    --text-light: #718078;
+
+    --border: #E0E7DF;
+
+    --background: #F7F8F3;
+
+    --white: #FFFFFF;
+
+    --shadow:
+        0 8px 30px rgba(25, 62, 42, 0.07);
+
+    --shadow-hover:
+        0 14px 35px rgba(25, 62, 42, 0.12);
+
+    --radius: 18px;
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+
+    font-family:
+        "Noto Sans Kannada",
+        "Noto Sans",
+        sans-serif;
+
+    background: var(--background);
+
+    color: var(--text);
+
+    display: flex;
+
+    min-height: 100vh;
+}
+
+button,
+input {
+
+    font-family: inherit;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.sidebar {
+
+    width: 250px;
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--forest),
+            var(--forest-dark)
+        );
+
+    color: white;
+
+    position: fixed;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    padding: 25px 16px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    z-index: 100;
+}
+
+
+.logo {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 0 10px 30px;
+}
+
+
+.logo-icon {
+
+    width: 45px;
+    height: 45px;
+
+    border-radius: 13px;
+
+    background: rgba(255,255,255,.13);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 25px;
+}
+
+
+.logo h2 {
+
+    font-size: 20px;
+
+    margin-bottom: 2px;
+}
+
+
+.logo span {
+
+    font-size: 11px;
+
+    opacity: .65;
+}
+
+
+.sidebar nav {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+
+.nav-item {
+
+    border: none;
+
+    background: transparent;
+
+    color: rgba(255,255,255,.72);
+
+    padding: 13px 14px;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    text-align: left;
+
+    transition: .2s;
+}
+
+
+.nav-item:hover {
+
+    background: rgba(255,255,255,.08);
+
+    color: white;
+}
+
+
+.nav-item.active {
+
+    background: white;
+
+    color: var(--forest);
+
+    font-weight: 700;
+}
+
+
+.sidebar-bottom {
+
+    margin-top: auto;
+}
+
+
+.iot-status-box {
+
+    background: rgba(255,255,255,.08);
+
+    border-radius: 14px;
+
+    padding: 13px;
+
+    display: flex;
+
+    gap: 10px;
+
+    align-items: center;
+}
+
+
+.status-dot,
+.live-dot,
+.connection-dot {
+
+    width: 9px;
+    height: 9px;
+
+    background: #52D67A;
+
+    border-radius: 50%;
+
+    display: inline-block;
+
+    box-shadow:
+        0 0 0 4px rgba(82,214,122,.12);
+}
+
+
+.iot-status-box strong {
+
+    display: block;
+
+    font-size: 13px;
+}
+
+
+.iot-status-box small {
+
+    display: block;
+
+    color: rgba(255,255,255,.55);
+
+    margin-top: 3px;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
+.main {
+
+    margin-left: 250px;
+
+    width: calc(100% - 250px);
+
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   TOPBAR
+   ========================================================= */
+
+.topbar {
+
+    height: 75px;
+
+    padding: 0 35px;
+
+    background: rgba(255,255,255,.9);
+
+    border-bottom: 1px solid var(--border);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 50;
+
+    backdrop-filter: blur(10px);
+}
+
+
+.language-switch {
+
+    display: flex;
+
+    gap: 4px;
+
+    padding: 4px;
+
+    background: var(--green-soft);
+
+    border-radius: 10px;
+}
+
+
+.lang-btn {
+
+    border: none;
+
+    background: transparent;
+
+    color: var(--forest);
+
+    padding: 7px 13px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+.lang-btn.active {
+
+    background: var(--forest);
+
+    color: white;
+}
+
+
+.topbar-right {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+}
+
+
+.live-status {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 12px;
+
+    color: var(--green);
+
+    font-weight: 600;
+}
+
+
+.farmer-profile {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.avatar {
+
+    width: 40px;
+    height: 40px;
+
+    background: var(--green-light);
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+
+.farmer-profile strong {
+
+    display: block;
+
+    font-size: 13px;
+}
+
+
+.farmer-profile small {
+
+    color: var(--text-light);
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.page {
+
+    display: none;
+
+    padding: 35px;
+}
+
+.page.active {
+
+    display: block;
+
+    animation: fadeIn .3s ease;
+}
+
+
+@keyframes fadeIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+
+    background:
+        linear-gradient(
+            120deg,
+            #E8F4E9,
+            #F9F4E9
+        );
+
+    border-radius: 22px;
+
+    padding: 35px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 22px;
+
+    border: 1px solid #DCE8DC;
+}
+
+
+.hero-tag {
+
+    color: var(--green);
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: .5px;
+}
+
+
+.hero h1 {
+
+    font-size: 30px;
+
+    margin: 12px 0 8px;
+
+    color: var(--forest);
+}
+
+
+.hero p {
+
+    color: var(--text-light);
+
+    max-width: 650px;
+
+    font-size: 14px;
+}
+
+
+.hero-icon {
+
+    font-size: 80px;
+
+    opacity: .8;
+}
+
+
+/* =========================================================
+   QUICK CARDS
+   ========================================================= */
+
+.quick-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 16px;
+
+    margin-bottom: 35px;
+}
+
+
+.quick-card {
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    padding: 20px;
+
+    display: flex;
+
+    gap: 14px;
+
+    align-items: center;
+
+    cursor: pointer;
+
+    box-shadow: var(--shadow);
+
+    transition: .25s;
+}
+
+
+.quick-card:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow: var(--shadow-hover);
+}
+
+
+.quick-icon {
+
+    width: 48px;
+    height: 48px;
+
+    background: var(--blue-light);
+
+    border-radius: 14px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+}
+
+
+.quick-icon.orange {
+
+    background: var(--ginger-light);
+}
+
+
+.quick-icon.purple {
+
+    background: var(--purple-light);
+}
+
+
+.quick-icon.gold {
+
+    background: var(--gold-light);
+}
+
+
+.quick-card span {
+
+    color: var(--text-light);
+
+    font-size: 11px;
+
+    display: block;
+}
+
+
+.quick-card strong {
+
+    display: block;
+
+    margin-top: 4px;
+
+    font-size: 16px;
+}
+
+
+.quick-card small {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color: var(--text-light);
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   SECTION HEADING
+   ========================================================= */
+
+.section-heading {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-end;
+
+    margin-bottom: 18px;
+}
+
+
+.eyebrow {
+
+    color: var(--green);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: .6px;
+}
+
+
+.section-heading h2 {
+
+    margin-top: 5px;
+
+    font-size: 22px;
+}
+
+
+.section-heading p {
+
+    color: var(--text-light);
+
+    font-size: 12px;
+
+    margin-top: 4px;
+}
+
+
+.sensor-info {
+
+    font-size: 11px;
+
+    color: var(--text-light);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+
+/* =========================================================
+   SENSOR GRID
+   ========================================================= */
+
+.sensor-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 16px;
+}
+
+
+.sensor-card {
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    padding: 20px;
+
+    box-shadow: var(--shadow);
+
+    transition: .2s;
+}
+
+
+.sensor-card:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow: var(--shadow-hover);
+}
+
+
+.sensor-card-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+}
+
+
+.sensor-label {
+
+    color: var(--text-light);
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+.sensor-card h3 {
+
+    font-size: 29px;
+
+    margin-top: 7px;
+
+    color: var(--forest);
+}
+
+
+.sensor-card h3 small {
+
+    font-size: 10px;
+
+    color: var(--text-light);
+
+    font-weight: 500;
+}
+
+
+.sensor-icon {
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 800;
+
+    font-size: 14px;
+
+    background: var(--green-light);
+
+    color: var(--green);
+}
+
+
+.sensor-icon.blue {
+
+    background: var(--blue-light);
+
+    color: var(--blue);
+}
+
+
+.sensor-icon.orange {
+
+    background: var(--ginger-light);
+
+    color: var(--ginger);
+}
+
+
+.sensor-icon.gold {
+
+    background: var(--gold-light);
+
+    color: #A77A12;
+}
+
+
+.sensor-progress {
+
+    height: 7px;
+
+    background: #EEF2ED;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    margin-top: 18px;
+}
+
+
+.progress-fill {
+
+    height: 100%;
+
+    width: 0%;
+
+    background: var(--green);
+
+    border-radius: inherit;
+
+    transition: width .6s ease;
+}
+
+
+.moisture-fill {
+
+    background: var(--blue);
+}
+
+
+.sensor-bottom {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 10px;
+
+    gap: 10px;
+
+    font-size: 10px;
+
+    color: var(--text-light);
+}
+
+
+.sensor-bottom strong {
+
+    color: var(--green);
+}
+
+
+/* =========================================================
+   IOT DETAILS
+   ========================================================= */
+
+.iot-details {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    margin-top: 14px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    padding: 14px 20px;
+
+    gap: 20px;
+}
+
+
+.iot-details div {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.iot-details span {
+
+    color: var(--text-light);
+
+    font-size: 10px;
+}
+
+
+.iot-details strong {
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   CONTENT GRID
+   ========================================================= */
+
+.content-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1.3fr .7fr;
+
+    gap: 18px;
+
+    margin-top: 25px;
+}
+
+
+.panel {
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    padding: 22px;
+
+    box-shadow: var(--shadow);
+}
+
+
+.panel-heading {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+}
+
+
+.panel-heading h3 {
+
+    font-size: 18px;
+
+    margin-top: 4px;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.primary-btn {
+
+    border: none;
+
+    background: var(--forest);
+
+    color: white;
+
+    padding: 11px 17px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    transition: .2s;
+}
+
+
+.primary-btn:hover {
+
+    background: var(--green);
+
+    transform: translateY(-1px);
+}
+
+
+.primary-btn:disabled {
+
+    opacity: .45;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+.outline-btn {
+
+    border: 1px solid var(--border);
+
+    background: white;
+
+    color: var(--forest);
+
+    padding: 9px 13px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+.outline-btn:hover {
+
+    border-color: var(--green);
+
+    background: var(--green-soft);
+}
+
+
+/* =========================================================
+   WEATHER SUMMARY
+   ========================================================= */
+
+.weather-summary {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+
+.weather-main {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+}
+
+
+.weather-main > span {
+
+    font-size: 45px;
+}
+
+
+.weather-main strong {
+
+    display: block;
+
+    font-size: 16px;
+}
+
+
+.weather-main small {
+
+    color: var(--text-light);
+
+    font-size: 11px;
+}
+
+
+.weather-temp strong {
+
+    font-size: 45px;
+
+    color: var(--forest);
+}
+
+
+/* =========================================================
+   FARM STATUS
+   ========================================================= */
+
+.status-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 16px;
+}
+
+
+.status-list > div {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.status-list > div > span {
+
+    width: 38px;
+    height: 38px;
+
+    background: var(--green-soft);
+
+    border-radius: 10px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+
+.status-list strong {
+
+    display: block;
+
+    font-size: 12px;
+}
+
+
+.status-list small {
+
+    color: var(--text-light);
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   PAGE TITLE
+   ========================================================= */
+
+.page-title {
+
+    margin-bottom: 25px;
+}
+
+
+.page-title h1 {
+
+    font-size: 28px;
+
+    margin: 6px 0;
+}
+
+
+.page-title p {
+
+    color: var(--text-light);
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   WEATHER PAGE
+   ========================================================= */
+
+.weather-search {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-bottom: 20px;
+}
+
+
+.weather-search input {
+
+    flex: 1;
+
+    padding: 12px 15px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    outline: none;
+
+    background: white;
+}
+
+
+.weather-search input:focus {
+
+    border-color: var(--green);
+}
+
+
+.hidden {
+
+    display: none !important;
+}
+
+
+.loading {
+
+    padding: 25px;
+
+    text-align: center;
+
+    color: var(--green);
+}
+
+
+.weather-result {
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    padding: 25px;
+
+    box-shadow: var(--shadow);
+}
+
+
+.weather-large {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding-bottom: 25px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.weather-large > div {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+}
+
+
+.weather-large span {
+
+    font-size: 55px;
+}
+
+
+.weather-large h2 {
+
+    font-size: 22px;
+}
+
+
+.weather-large p {
+
+    color: var(--text-light);
+
+    font-size: 12px;
+}
+
+
+.weather-large > strong {
+
+    font-size: 45px;
+
+    color: var(--forest);
+}
+
+
+.weather-stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap: 15px;
+
+    margin-top: 20px;
+}
+
+
+.weather-stats > div {
+
+    background: var(--green-soft);
+
+    border-radius: 12px;
+
+    padding: 16px;
+
+    text-align: center;
+}
+
+
+.weather-stats span {
+
+    font-size: 20px;
+
+    display: block;
+
+    margin-bottom: 8px;
+}
+
+
+.weather-stats strong {
+
+    display: block;
+
+    font-size: 16px;
+}
+
+
+.weather-stats small {
+
+    display: block;
+
+    color: var(--text-light);
+
+    margin-top: 4px;
+
+    font-size: 10px;
+}
+
+
+.advice-box {
+
+    margin-top: 20px;
+
+    padding: 15px;
+
+    background: var(--gold-light);
+
+    border: 1px solid #F0DC9C;
+
+    border-radius: 12px;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   CROP DOCTOR
+   ========================================================= */
+
+.crop-upload {
+
+    text-align: center;
+}
+
+
+.upload-area {
+
+    border: 2px dashed #CAD8CA;
+
+    border-radius: 15px;
+
+    padding: 40px 20px;
+
+    cursor: pointer;
+
+    display: block;
+
+    transition: .2s;
+}
+
+
+.upload-area:hover {
+
+    border-color: var(--green);
+
+    background: var(--green-soft);
+}
+
+
+.upload-area > div {
+
+    font-size: 45px;
+
+    margin-bottom: 10px;
+}
+
+
+.upload-area h3 {
+
+    margin-bottom: 5px;
+}
+
+
+.upload-area p {
+
+    color: var(--text-light);
+
+    font-size: 12px;
+}
+
+
+.crop-preview {
+
+    max-width: 400px;
+
+    width: 100%;
+
+    border-radius: 15px;
+
+    margin: 20px auto;
+
+    display: block;
+}
+
+
+.crop-result {
+
+    margin-top: 20px;
+
+    background: var(--green-soft);
+
+    border: 1px solid #CDE4D1;
+
+    padding: 18px;
+
+    border-radius: 12px;
+
+    text-align: left;
+
+    line-height: 1.6;
+
+    font-size: 13px;
+}
+
+
+.notice {
+
+    margin-top: 20px;
+
+    padding: 13px;
+
+    background: #F8F8F4;
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    color: var(--text-light);
+
+    font-size: 11px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   GUIDE
+   ========================================================= */
+
+.guide-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 18px;
+}
+
+
+.guide-card {
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    padding: 22px;
+
+    box-shadow: var(--shadow);
+
+    transition: .2s;
+}
+
+
+.guide-card:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow: var(--shadow-hover);
+}
+
+
+.guide-card > div {
+
+    width: 45px;
+    height: 45px;
+
+    background: var(--green-light);
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+
+    margin-bottom: 15px;
+}
+
+
+.guide-card h3 {
+
+    font-size: 16px;
+
+    margin-bottom: 8px;
+}
+
+
+.guide-card p {
+
+    color: var(--text-light);
+
+    font-size: 12px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   ASSISTANT
+   ========================================================= */
+
+.chat-container {
+
+    max-width: 900px;
+
+    margin: auto;
+}
+
+
+.chat-messages {
+
+    min-height: 350px;
+
+    max-height: 480px;
+
+    overflow-y: auto;
+
+    padding: 10px;
+}
+
+
+.message {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-bottom: 15px;
+
+    max-width: 80%;
+}
+
+
+.message.user {
+
+    margin-left: auto;
+
+    flex-direction: row-reverse;
+}
+
+
+.message-icon {
+
+    width: 35px;
+    height: 35px;
+
+    background: var(--green-light);
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+}
+
+
+.message > div:last-child {
+
+    padding: 12px 15px;
+
+    border-radius: 13px;
+
+    background: var(--green-soft);
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+.message.user > div:last-child {
+
+    background: var(--forest);
+
+    color: white;
+}
+
+
+.quick-questions {
+
+    display: flex;
+
+    gap: 8px;
+
+    flex-wrap: wrap;
+
+    padding: 15px 0;
+
+    border-top: 1px solid var(--border);
+}
+
+
+.quick-questions button {
+
+    border: 1px solid var(--border);
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 8px 12px;
+
+    cursor: pointer;
+
+    font-size: 11px;
+}
+
+
+.quick-questions button:hover {
+
+    border-color: var(--green);
+
+    background: var(--green-soft);
+}
+
+
+.chat-input {
+
+    display: flex;
+
+    gap: 8px;
+
+    border-top: 1px solid var(--border);
+
+    padding-top: 15px;
+}
+
+
+.chat-input input {
+
+    flex: 1;
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    padding: 12px;
+
+    outline: none;
+}
+
+
+.icon-btn {
+
+    border: 1px solid var(--border);
+
+    background: white;
+
+    border-radius: 10px;
+
+    padding: 0 14px;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   MARKET
+   ========================================================= */
+
+.market-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 18px;
+}
+
+
+.market-card {
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    padding: 25px;
+
+    box-shadow: var(--shadow);
+
+    text-align: center;
+}
+
+
+.market-logo {
+
+    width: 65px;
+    height: 65px;
+
+    background: var(--green-light);
+
+    border-radius: 18px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 30px;
+
+    margin-bottom: 15px;
+}
+
+
+.market-card h3 {
+
+    font-size: 17px;
+
+    margin-bottom: 5px;
+}
+
+
+.market-card p {
+
+    color: var(--text-light);
+
+    font-size: 11px;
+
+    margin-bottom: 18px;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+
+    margin-top: 50px;
+
+    padding: 25px 0;
+
+    color: var(--text-light);
+
+    font-size: 10px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    border-top: 1px solid var(--border);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media(max-width:1100px) {
+
+    .quick-grid,
+    .sensor-grid {
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .guide-grid,
+    .market-grid {
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+}
+
+
+@media(max-width:800px) {
+
+    .sidebar {
+
+        width: 70px;
+
+        padding: 20px 8px;
+    }
+
+    .logo {
+
+        justify-content: center;
+
+        padding: 0 0 25px;
+    }
+
+    .logo > div:last-child,
+    .nav-item span:last-child,
+    .iot-status-box div:last-child {
+
+        display: none;
+    }
+
+    .nav-item {
+
+        justify-content: center;
+
+        padding: 13px;
+    }
+
+    .main {
+
+        margin-left: 70px;
+
+        width: calc(100% - 70px);
+    }
+
+    .page {
+
+        padding: 22px;
+    }
+
+    .content-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .topbar {
+
+        padding: 0 20px;
+    }
+}
+
+
+@media(max-width:600px) {
+
+    .quick-grid,
+    .sensor-grid,
+    .guide-grid,
+    .market-grid,
+    .weather-stats {
+
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+
+        padding: 25px;
+    }
+
+    .hero-icon {
+
+        display: none;
+    }
+
+    .weather-search {
+
+        flex-direction: column;
+    }
+
+    .section-heading {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 10px;
+    }
+
+    .iot-details {
+
+        grid-template-columns: 1fr;
+    }
+
+    .topbar-right .farmer-profile {
+
+        display: none;
+    }
+
+    .topbar {
+
+        height: auto;
+
+        padding: 12px 15px;
+    }
+
+    .page {
+
+        padding: 15px;
+    }
+}

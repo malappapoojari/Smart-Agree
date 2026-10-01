@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GingerMitra - Smart Ginger Farming</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <div class="logo">
+        🌱 <span>GingerMitra</span>
+    </div>
+
+    <button class="nav active" data-page="dashboard">
+        🏠 <span>Dashboard</span>
+    </button>
+
+    <button class="nav" data-page="doctor">
+        📷 <span>Crop Doctor</span>
+    </button>
+
+    <button class="nav" data-page="farming">
+        🌾 <span>Farming Guide</span>
+    </button>
+
+    <button class="nav" data-page="chat">
+        🤖 <span>Ginger Assistant</span>
+    </button>
+
+    <button class="nav" data-page="market">
+        🏢 <span>Direct Market</span>
+    </button>
+
+</aside>
+
+
+<!-- MAIN -->
+<main class="main">
+
+    <header class="topbar">
+
+        <div>
+            <h1 id="title">Ginger Farming Dashboard</h1>
+            <p id="subtitle">Simple farming assistance for every farmer</p>
+        </div>
+
+        <button class="listen" onclick="speak('Welcome to GingerMitra ginger farming assistant')">
+            🔊 Listen
+        </button>
+
+    </header>
+
+
+    <!-- ================= DASHBOARD ================= -->
+
+    <section id="dashboard" class="page active">
+
+        <div class="welcome">
+
+            <div>
+                <h2>Namaste Farmer 👨‍🌾</h2>
+
+                <p>
+                    Take a photo of your ginger crop,
+                    ask farming questions and connect directly
+                    with companies.
+                </p>
+
+                <button class="green-btn" onclick="openPage('doctor')">
+                    📷 Check My Crop
+                </button>
+            </div>
+
+            <div class="big-plant">
+                🌱
+            </div>
+
+        </div>
+
+
+        <h2 class="heading">What do you want to do?</h2>
+
+
+        <div class="cards">
+
+            <div class="card" onclick="openPage('doctor')">
+                <div class="icon">📷</div>
+                <h3>Check Crop</h3>
+                <p>Take a photo and check possible crop problems.</p>
+            </div>
+
+            <div class="card" onclick="openPage('farming')">
+                <div class="icon">🌾</div>
+                <h3>Farming Guide</h3>
+                <p>Learn planting, soil, irrigation and harvesting.</p>
+            </div>
+
+            <div class="card" onclick="openPage('chat')">
+                <div class="icon">🤖</div>
+                <h3>Ask Ginger AI</h3>
+                <p>Ask questions using text or your voice.</p>
+            </div>
+
+            <div class="card" onclick="openPage('market')">
+                <div class="icon">🏢</div>
+                <h3>Sell Directly</h3>
+                <p>Connect directly with companies and buyers.</p>
+            </div>
+
+        </div>
+
+
+        <h2 class="heading">Quick Information</h2>
+
+        <div class="quick-grid">
+
+            <div>
+                🌱
+                <b>Crop</b>
+                <span>Ginger</span>
+            </div>
+
+            <div>
+                💧
+                <b>Water</b>
+                <span>Maintain soil moisture</span>
+            </div>
+
+            <div>
+                🌍
+                <b>Soil</b>
+                <span>Loose & well drained</span>
+            </div>
+
+            <div>
+                🔎
+                <b>Inspection</b>
+                <span>Check crop regularly</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CROP DOCTOR ================= -->
+
+    <section id="doctor" class="page">
+
+        <div class="page-head">
+            <h2>📷 Ginger Crop Doctor</h2>
+            <p>Take a photo or upload a photo of your ginger plant.</p>
+        </div>
+
+
+        <div class="doctor">
+
+            <div class="doctor-box">
+
+                <div class="camera-large">📷</div>
+
+                <h2>Take Crop Photo</h2>
+
+                <p>
+                    Capture a clear photo of the leaf,
+                    stem or ginger rhizome.
+                </p>
+
+                <input
+                    type="file"
+                    id="photo"
+                    accept="image/*"
+                    capture="environment">
+
+                <label for="photo" class="camera-button">
+                    📸 Take / Upload Photo
+                </label>
+
+                <div id="preview"></div>
+
+                <button
+                    id="analyze"
+                    class="green-btn hidden"
+                    onclick="analyzeCrop()">
+
+                    🔍 Analyze Crop
+
+                </button>
+
+            </div>
+
+
+            <div class="result-box" id="result">
+
+                <div class="empty">
+
+                    <div>🌱</div>
+
+                    <h3>No crop checked</h3>
+
+                    <p>
+                        Upload a photo to start.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FARMING ================= -->
+
+    <section id="farming" class="page">
+
+        <div class="page-head">
+
+            <h2>🌾 Ginger Farming Guide</h2>
+
+            <p>
+                Simple information from planting to harvesting.
+            </p>
+
+        </div>
+
+
+        <div class="farm-grid">
+
+            <div class="farm-card">
+                <div>🌱</div>
+                <h3>Seed Selection</h3>
+                <p>
+                    Select healthy, disease-free ginger rhizomes
+                    for planting.
+                </p>
+                <button onclick="speak('Select healthy disease free ginger rhizomes for planting.')">
+                    🔊 Listen
+                </button>
+            </div>
+
+
+            <div class="farm-card">
+                <div>🌍</div>
+                <h3>Soil</h3>
+                <p>
+                    Ginger prefers fertile, loose and
+                    well-drained soil.
+                </p>
+                <button onclick="speak('Ginger prefers fertile, loose and well drained soil.')">
+                    🔊 Listen
+                </button>
+            </div>
+
+
+            <div class="farm-card">
+                <div>💧</div>
+                <h3>Irrigation</h3>
+                <p>
+                    Keep the soil adequately moist but
+                    avoid standing water.
+                </p>
+                <button onclick="speak('Keep the soil adequately moist but avoid standing water.')">
+                    🔊 Listen
+                </button>
+            </div>
+
+
+            <div class="farm-card">
+                <div>🌿</div>
+                <h3>Fertilizer</h3>
+                <p>
+                    Use organic matter and fertilizers
+                    according to soil-test recommendations.
+                </p>
+                <button onclick="speak('Use organic matter and fertilizers according to soil test recommendations.')">
+                    🔊 Listen
+                </button>
+            </div>
+
+
+            <div class="farm-card">
+                <div>🐛</div>
+                <h3>Pest Management</h3>
+                <p>
+                    Regularly inspect leaves, stems and
+                    rhizomes for pest damage.
+                </p>
+                <button onclick="speak('Regularly inspect leaves, stems and rhizomes for pest damage.')">
+                    🔊 Listen
+                </button>
+            </div>
+
+
+            <div class="farm-card">
+                <div>🧺</div>
+                <h3>Harvest</h3>
+                <p>
+                    Harvest according to crop maturity and
+                    your market requirement.
+                </p>
+                <button onclick="speak('Harvest ginger according to crop maturity and your market requirement.')">
+                    🔊 Listen
+                </button>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CHATBOT ================= -->
+
+    <section id="chat" class="page">
+
+        <div class="page-head">
+
+            <h2>🤖 Ginger Farming Assistant</h2>
+
+            <p>
+                Ask your question in simple language.
+            </p>
+
+        </div>
+
+
+        <div class="chat-container">
+
+            <div class="chat-header">
+
+                <div class="bot">
+                    🌱
+                </div>
+
+                <div>
+                    <h3>Ginger AI</h3>
+                    <small>Farming Assistant</small>
+                </div>
+
+            </div>
+
+
+            <div id="messages" class="messages">
+
+                <div class="bot-message">
+
+                    <b>🌱 Ginger AI</b>
+
+                    <p>
+                        Namaste! Ask me about ginger soil,
+                        planting, water, fertilizer, diseases,
+                        pests, harvesting or selling.
+                    </p>
+
+                    <button onclick="speak('Namaste! Ask me about ginger soil, planting, water, fertilizer, diseases, pests, harvesting or selling.')">
+                        🔊
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="quick">
+
+                <button onclick="quickAsk('What soil is good for ginger?')">
+                    🌍 Soil
+                </button>
+
+                <button onclick="quickAsk('How should I water ginger?')">
+                    💧 Water
+                </button>
+
+                <button onclick="quickAsk('What diseases affect ginger?')">
+                    🦠 Disease
+                </button>
+
+                <button onclick="quickAsk('When should I harvest ginger?')">
+                    🧺 Harvest
+                </button>
+
+            </div>
+
+
+            <div class="chat-input">
+
+                <button onclick="voiceInput()">
+                    🎤
+                </button>
+
+                <input
+                    id="question"
+                    placeholder="Ask about ginger farming..."
+                    onkeydown="enterSend(event)">
+
+                <button onclick="sendMessage()">
+                    ➤
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= MARKET ================= -->
+
+    <section id="market" class="page">
+
+        <div class="page-head">
+
+            <h2>🏢 Direct Company Market</h2>
+
+            <p>
+                Sell directly to companies without brokers.
+            </p>
+
+        </div>
+
+
+        <div class="notice">
+
+            🚫 <b>No Brokers</b>
+
+            <p>
+                This marketplace is designed for
+                direct farmer-to-company communication.
+            </p>
+
+        </div>
+
+
+        <div class="company-grid">
+
+            <div class="company">
+
+                <div class="company-icon">
+                    🏢
+                </div>
+
+                <h3>Fresh Ginger Foods</h3>
+
+                <p>Ginger processing company</p>
+
+                <p>📍 Karnataka</p>
+
+                <button onclick="contact('Fresh Ginger Foods')">
+                    📞 Contact Company
+                </button>
+
+            </div>
+
+
+            <div class="company">
+
+                <div class="company-icon">
+                    🏭
+                </div>
+
+                <h3>Spice Processing Ltd.</h3>
+
+                <p>Spice processing company</p>
+
+                <p>📍 South India</p>
+
+                <button onclick="contact('Spice Processing Ltd.')">
+                    📞 Contact Company
+                </button>
+
+            </div>
+
+
+            <div class="company">
+
+                <div class="company-icon">
+                    🌏
+                </div>
+
+                <h3>Agri Export Company</h3>
+
+                <p>Agricultural produce buyer</p>
+
+                <p>📍 India</p>
+
+                <button onclick="contact('Agri Export Company')">
+                    📞 Contact Company
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- FLOATING CHAT -->
+
+<button class="floating" onclick="openPage('chat')">
+    🤖
+</button>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
